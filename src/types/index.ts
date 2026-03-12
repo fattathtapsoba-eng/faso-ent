@@ -6,6 +6,18 @@ export type EvaluationType = 'Devoir' | 'Compo';
 export type SyncStatus = 'synced' | 'pending' | 'error';
 export type DayOfWeek = 'lundi' | 'mardi' | 'mercredi' | 'jeudi' | 'vendredi' | 'samedi';
 
+// ============ SCHOOL YEAR (ANNÉE SCOLAIRE) ============
+
+export interface SchoolYear {
+    id: string;           // ex: "2024-2025"
+    label: string;        // ex: "Année scolaire 2024-2025"
+    start_date: string;   // ex: "2024-10-01"
+    end_date: string;     // ex: "2025-07-31"
+    is_active: boolean;   // Une seule active à la fois
+    is_closed: boolean;   // Lecture seule après clôture de fin d'année
+}
+
+
 // Base User entity
 export interface User {
     id: string;

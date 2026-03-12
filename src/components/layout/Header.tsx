@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '../ui/button';
 import { SyncIndicator } from '../features/SyncIndicator';
 import { NotificationBell } from '../features/NotificationBell';
+import { SchoolYearSelector } from '../features/SchoolYearSelector';
 
 interface HeaderProps {
     title: string;
@@ -20,8 +21,8 @@ export function Header({ title, subtitle, children }: HeaderProps) {
         navigate('/login');
     }
 
-    // Get current user ID for notifications
     const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : null;
+    const isAdmin = user?.role === 'ADMIN';
 
     return (
         <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
@@ -32,6 +33,8 @@ export function Header({ title, subtitle, children }: HeaderProps) {
                         {subtitle && <p className="text-sm text-gray-600">{subtitle}</p>}
                     </div>
                     <div className="flex items-center gap-2">
+                        {/* Sélecteur d'année scolaire — admins uniquement */}
+                        {isAdmin && <SchoolYearSelector />}
                         {user && <NotificationBell userId={user.id} />}
                         <Button
                             variant="ghost"
@@ -54,4 +57,3 @@ export function Header({ title, subtitle, children }: HeaderProps) {
         </header>
     );
 }
-

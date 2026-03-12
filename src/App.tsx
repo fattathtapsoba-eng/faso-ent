@@ -6,6 +6,7 @@ import { PWAInstallPrompt } from './components/features/PWAInstallPrompt';
 // Pages
 import { Login } from './pages/Login';
 import { Dashboard } from './pages/admin/Dashboard';
+import { Pilotage } from './pages/admin/Pilotage';
 import { Students } from './pages/admin/Students';
 import { Finances } from './pages/admin/Finances';
 import { Settings } from './pages/admin/Settings';
@@ -13,6 +14,7 @@ import { TeacherManagement } from './pages/admin/TeacherManagement';
 import { ParentManagement } from './pages/admin/ParentManagement';
 import { ComposeParentMessage } from './pages/admin/ComposeParentMessage';
 import { Services } from './pages/admin/Services';
+import { SchoolYears } from './pages/admin/SchoolYears';
 import { GradeEntry } from './pages/teacher/GradeEntry';
 import { TeacherSchedule } from './pages/teacher/Schedule';
 import { Attendance } from './pages/teacher/Attendance';
@@ -51,229 +53,249 @@ function RequireAuth({ children }: { children: React.ReactElement }) {
   return children;
 }
 
+import { SchoolYearProvider } from './context/SchoolYearContext';
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Routes>
-          {/* Public Routes */}
-          <Route path="/login" element={<Login />} />
+      <SchoolYearProvider>
+        <BrowserRouter>
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/login" element={<Login />} />
 
-          {/* Admin Routes */}
-          <Route
-            path="/admin/dashboard"
-            element={
-              <RequireAuth>
-                <Dashboard />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/admin/students"
-            element={
-              <RequireAuth>
-                <Students />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/admin/finances"
-            element={
-              <RequireAuth>
-                <Finances />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/admin/settings"
-            element={
-              <RequireAuth>
-                <Settings />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/admin/teachers"
-            element={
-              <RequireAuth>
-                <TeacherManagement />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/admin/parents"
-            element={
-              <RequireAuth>
-                <ParentManagement />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/admin/messages/compose"
-            element={
-              <RequireAuth>
-                <ComposeParentMessage />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/admin/services"
-            element={
-              <RequireAuth>
-                <Services />
-              </RequireAuth>
-            }
-          />
+            {/* Admin Routes */}
+            <Route
+              path="/admin/pilotage"
+              element={
+                <RequireAuth>
+                  <Pilotage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/admin/dashboard"
+              element={
+                <RequireAuth>
+                  <Dashboard />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/admin/students"
+              element={
+                <RequireAuth>
+                  <Students />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/admin/finances"
+              element={
+                <RequireAuth>
+                  <Finances />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/admin/settings"
+              element={
+                <RequireAuth>
+                  <Settings />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/admin/school-years"
+              element={
+                <RequireAuth>
+                  <SchoolYears />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/admin/teachers"
+              element={
+                <RequireAuth>
+                  <TeacherManagement />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/admin/parents"
+              element={
+                <RequireAuth>
+                  <ParentManagement />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/admin/messages/compose"
+              element={
+                <RequireAuth>
+                  <ComposeParentMessage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/admin/services"
+              element={
+                <RequireAuth>
+                  <Services />
+                </RequireAuth>
+              }
+            />
 
-          {/* Teacher Routes */}
-          <Route
-            path="/teacher/dashboard"
-            element={
-              <RequireAuth>
-                <TeacherDashboard />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/teacher/grade-entry"
-            element={
-              <RequireAuth>
-                <GradeEntry />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/teacher/schedule"
-            element={
-              <RequireAuth>
-                <TeacherSchedule />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/teacher/attendance"
-            element={
-              <RequireAuth>
-                <Attendance />
-              </RequireAuth>
-            }
-          />
+            {/* Teacher Routes */}
+            <Route
+              path="/teacher/dashboard"
+              element={
+                <RequireAuth>
+                  <TeacherDashboard />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/teacher/grade-entry"
+              element={
+                <RequireAuth>
+                  <GradeEntry />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/teacher/schedule"
+              element={
+                <RequireAuth>
+                  <TeacherSchedule />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/teacher/attendance"
+              element={
+                <RequireAuth>
+                  <Attendance />
+                </RequireAuth>
+              }
+            />
 
-          {/* Parent Routes */}
-          <Route
-            path="/parent/dashboard"
-            element={
-              <RequireAuth>
-                <ParentDashboard />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/parent/children"
-            element={
-              <RequireAuth>
-                <Children />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/parent/grades/:childId?"
-            element={
-              <RequireAuth>
-                <ChildGrades />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/parent/schedule/:childId?"
-            element={
-              <RequireAuth>
-                <ChildSchedule />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/parent/payments"
-            element={
-              <RequireAuth>
-                <Payments />
-              </RequireAuth>
-            }
-          />
+            {/* Parent Routes */}
+            <Route
+              path="/parent/dashboard"
+              element={
+                <RequireAuth>
+                  <ParentDashboard />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/parent/children"
+              element={
+                <RequireAuth>
+                  <Children />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/parent/grades/:childId?"
+              element={
+                <RequireAuth>
+                  <ChildGrades />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/parent/schedule/:childId?"
+              element={
+                <RequireAuth>
+                  <ChildSchedule />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/parent/payments"
+              element={
+                <RequireAuth>
+                  <Payments />
+                </RequireAuth>
+              }
+            />
 
-          {/* Student Routes */}
-          <Route
-            path="/student/dashboard"
-            element={
-              <RequireAuth>
-                <StudentDashboard />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/student/grades"
-            element={
-              <RequireAuth>
-                <MyGrades />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/student/schedule"
-            element={
-              <RequireAuth>
-                <MySchedule />
-              </RequireAuth>
-            }
-          />
+            {/* Student Routes */}
+            <Route
+              path="/student/dashboard"
+              element={
+                <RequireAuth>
+                  <StudentDashboard />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/student/grades"
+              element={
+                <RequireAuth>
+                  <MyGrades />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/student/schedule"
+              element={
+                <RequireAuth>
+                  <MySchedule />
+                </RequireAuth>
+              }
+            />
 
-          {/* Shared Routes - Notifications & Messages */}
-          <Route
-            path="/notifications"
-            element={
-              <RequireAuth>
-                <Notifications />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/messages"
-            element={
-              <RequireAuth>
-                <Messages />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/messages/:threadId"
-            element={
-              <RequireAuth>
-                <MessageThread />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/messages/compose"
-            element={
-              <RequireAuth>
-                <ComposeMessage />
-              </RequireAuth>
-            }
-          />
+            {/* Shared Routes - Notifications & Messages */}
+            <Route
+              path="/notifications"
+              element={
+                <RequireAuth>
+                  <Notifications />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/messages"
+              element={
+                <RequireAuth>
+                  <Messages />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/messages/:threadId"
+              element={
+                <RequireAuth>
+                  <MessageThread />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/messages/compose"
+              element={
+                <RequireAuth>
+                  <ComposeMessage />
+                </RequireAuth>
+              }
+            />
 
-          {/* Default redirect */}
-          <Route path="/" element={<Navigate to="/login" replace />} />
+            {/* Default redirect */}
+            <Route path="/" element={<Navigate to="/login" replace />} />
 
-          {/* 404 */}
-          <Route path="*" element={<Navigate to="/login" replace />} />
-        </Routes>
-      </BrowserRouter>
+            {/* 404 */}
+            <Route path="*" element={<Navigate to="/login" replace />} />
+          </Routes>
+        </BrowserRouter>
 
-      {/* PWA Install Prompt */}
-      <PWAInstallPrompt />
+        {/* PWA Install Prompt */}
+        <PWAInstallPrompt />
 
-      {/* DevTools - only in development */}
-      {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
+        {/* DevTools - only in development */}
+        {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
+      </SchoolYearProvider>
     </QueryClientProvider>
   );
 }
